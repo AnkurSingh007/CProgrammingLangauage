@@ -36,6 +36,7 @@ void itoa(int n, char num[]){
     }while(n > 0);
     if(sign < 0)
         num[i++] = '-';
+    num[i++] = '\0';
     reverse(num);
 }
 
