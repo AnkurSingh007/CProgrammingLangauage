@@ -232,3 +232,4 @@ void ungets(char  [] s){
     for(i = 0; i < len; i++){
         ungetch(s[i]);        
     }
+}
