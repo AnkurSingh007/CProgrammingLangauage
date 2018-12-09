@@ -19,7 +19,7 @@ double uniary_operator(char []);
 
 int main(){
     int i, type;
-    double op2;
+    double op2, latest;
     char s[MAXOP];
     char var;
     double store[MAXVAR];
@@ -39,6 +39,8 @@ int main(){
             case VARIABLE:
                 if(var == s[0])
                     push(store[var - 'A']);
+                if(s[0] == '^')
+                    push(latest);
                 else
                     var = s[0];
                 break;
@@ -69,7 +71,8 @@ int main(){
                 break;
             case '\n':
                 printf("Got newline \n");
-                printf("\t%.8g\n", pop());
+                latest = pop();
+                printf("\t%.8g\n", latest);
                 break;
             default:
                 printf("error: unknown command %s\n", s);
@@ -164,11 +167,14 @@ int getch(void);
 void ungetch(int);
 
 int getop(char s[]){
-    int i,c, size ;
+    int i,c;
+    int size = 0;
     int isalphabet = 0;
     while((s[0] = c = getch()) == ' ' || c == '\t')
     ;
     s[1] = '\0';
+    if(c == '^')
+        return VARIABLE;
     if(!isalpha(c) && !isdigit(c) && c != '.')
         return c;
     i = 0;
@@ -193,10 +199,8 @@ int getop(char s[]){
 	    else
 	        return STRING;
     }
-    else{
+    else
         return NUMBER;
-    }
-    
 }
 
 
