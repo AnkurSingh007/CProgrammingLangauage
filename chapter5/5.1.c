@@ -1,10 +1,15 @@
 #include<ctype.h>
+#include<stdlib.h>
+#include<stdio.h>
 
-int getch(void)
-void ungetch(int)
+int getch(void);
+void ungetch(int);
+int getint(int * pn);
 
 int main(){
-	
+	int a = 0;
+	getint(&a);
+    printf("integer input is %d \n", a);
     return 0;
 }
 
@@ -19,7 +24,7 @@ int getint(int *pn){
 	sign = (c == '-') ? -1 : 1;
 	if(c == '+' || c == '-')
 		c = getch();
-	for(*pn = 0; isdigit(c) ; c = getch()){
+	for(*pn = 0; isdigit(c) ; c = getch())
 		*pn = 10 * *pn + (c - '0');
 	if(isdigit(c) && c == '+' || c == '-'){
 		ungetch(c);
@@ -28,7 +33,8 @@ int getint(int *pn){
 	*pn *= sign;
 	if(c != EOF){
 		ungetch(c);
-	return c;
+	    return c;
+    }
 }
 
 
@@ -43,7 +49,7 @@ int getch(void){
     return (bufp > 0) ? buf[--bufp] : getchar();
 }
 
-void ungietch(int c){
+void ungetch(int c){
     if(bufp >= BUFSIZE)
         printf("ungetch: too many characters\n");
     else
