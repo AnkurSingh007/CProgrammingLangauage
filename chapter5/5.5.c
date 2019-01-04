@@ -2,6 +2,7 @@
 
 void strncpy2(char *s , char * t, int n);
 void strncat2(char *s , char *t , int n);
+int strncmp2(char *s , char *t , int n);
 
 char str1[100];
 char str2[100];
@@ -11,8 +12,14 @@ int main(){
 	scanf("%s", str1);
 	printf("Enter the string\n");
 	scanf("%s", str2);
-	strncat2(str2, str1, 5);
-	printf("after strncat call str2 is %s\n", str2);
+	int comp = strncmp2(str1, str2, 5);
+	if(comp == 0)
+		printf("str1 and str2 are equal\n");
+	else if(comp > 0)
+		printf("str1 is lexicographically greater than str2\n");
+	else if(comp < 0)
+		printf("str1 is lexicographically lesser than str2\n");
+	return 0;
 }
 
 
@@ -32,4 +39,15 @@ void strncat2(char *s , char *t, int n){
 	;
 	*s = '\0';
 	return;
+}
+
+int strncmp2(char *s , char *t , int n){
+	int i = 0;
+	for(;*s == *t; s++, t++, i++){
+		if(*s == '\0')
+			return 0;
+		if(i == n)
+			return 0;
+	}
+	return *s - *t;
 }
